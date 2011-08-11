@@ -4,6 +4,7 @@ phpSysWatch
 Description
 -----------
 This script will take a snapshot of the following information every 60 seconds(changeable) and input it into a sqlite database:
+
 + netstat -nat
 + ps aux
 + mysql processlist
