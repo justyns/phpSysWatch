@@ -266,17 +266,24 @@ if (!isset($_REQUEST['a'])) {
                         echo "\n</script>\n";
                         break;
                     case "loaddetail":
-                        if (isset($_REQUEST['timestamp'])) {
+                        if ((isset($_REQUEST['timestamp'])) || (isset($_REQUEST['id']))) {
+                            if (isset($_REQUEST['id'])) {
+                            //using the next/prev links, we need to get and set the timestamp
+                            $id = $db->quote($_REQUEST['id']); //TODO: Better escape
+                            $result = $db->query("SELECT time FROM netstat WHERE netstat.id=$id;")->fetchAll();
+                            $time = $result[0]['time'];
+                        } else {
                             $time = $_REQUEST['timestamp'];
+                        }
                             //populate detailview with the information we have for this timestamp
-                            $result = $db->query("SELECT decompress(netstat),
+                            $result = $db->query("SELECT netstat.id,
+                                    decompress(netstat),
                                     decompress(ps),
                                     decompress(serverstatus),
                                     decompress(processlist)
                                                   FROM netstat, ps, http, mysql 
                                                   WHERE netstat.time=$time AND ps.time=$time AND http.time=$time AND mysql.time=$time;");
                             $results = $result->fetchAll();
-                            //foreach($result as $row){
                             ob_start();
                             ?>
                             <html><head>
@@ -293,6 +300,7 @@ if (!isset($_REQUEST['a'])) {
                                 <body>
                                    <p>
                                        <strong>Viewing Timestamp: <?php echo $time . " (" . date('r', $time) . ")";?></strong>
+                                       |    <a href="<?php echo $watchview . "?a=loaddetail&id=" . ($results[0]['id']-1);?> ">Prev</a> | <a href="<?php echo $watchview . "?a=loaddetail&id=" . ($results[0]['id']+1);?> ">Next</a>
                                    </p>
                                     <div id="tabs">
                                         <ul>
