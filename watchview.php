@@ -57,23 +57,7 @@ if (!isset($_REQUEST['a'])) {
             <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
             <script type="text/javascript">
                 google.load("visualization", "1", {packages:["corechart"]});
-                //google.load("jquery", "1.6.2");
-                //google.setOnLoadCallback(drawChart("LoadAvg", "&load&ps", "chart_div"));
                 $(document).ready(function() {
-//                    var dates = $( "#from, #to" ).datetimepicker({
-//                        defaultDate: "-1d",
-//                        changeMonth: true,
-//                        numberOfMonths: 1,
-//                        onSelect: function( selectedDate ) {
-//                            var option = this.id == "from" ? "minDate" : "maxDate",
-//                            instance = $( this ).data( "datepicker" ),
-//                            date = $.datepicker.parseDate(
-//                            instance.settings.dateFormat ||
-//                                $.datepicker._defaults.dateFormat,
-//                            selectedDate, instance.settings );
-//                            dates.not( this ).datepicker( "option", option, date );
-//                        }
-//                    });
                     $("#from").datetimepicker({
                         minDate: new Date(<?php echo $oldestrec[0]*1000; ?>),
                         maxDate: new Date(<?php echo $newestrec[0]*1000; ?>)
@@ -100,8 +84,9 @@ if (!isset($_REQUEST['a'])) {
                     drawChart("Processes", "&ps", "chart_ps", "ps", startstamp, endstamp);
                     drawChart("Network", "&net", "chart_net", "netstat", startstamp, endstamp);
                 });
-                // this function create an Array that contains the JS code of every <script> tag in parameter
+                // this function creates an Array that contains the JS code of every <script> tag in parameter
                 // then apply the eval() to execute the code in every script collected
+                // TODO: find the source for this function again
                 function parseScript(strcode) {
                     var scripts = new Array();         // Array which will store the script's code
                                       
@@ -133,7 +118,7 @@ if (!isset($_REQUEST['a'])) {
                     window.open("<?php echo $watchview; ?>?a=loaddetail&timestamp="+timestamp+"#"+tab, "detailview","width=750,height=600");
                 }
                 function drawChart(title,params,chartdiv,tab, startstamp,endstamp) {
-                    document.getElementById(chartdiv).innerHTML='<img src="/watch/local/35-0.gif" />';
+                    document.getElementById(chartdiv).innerHTML='<img src="http://dev.justynshull.com/watch/local/35-0.gif" />';
                     $.ajax({
                         type: "GET",
                         cache: true,
@@ -295,6 +280,7 @@ if (!isset($_REQUEST['a'])) {
                             ob_start();
                             ?>
                             <html><head>
+                                    <title>watchview.php: <?php echo $time; ?></title>
                                     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
                                     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/jquery-ui.min.js"></script>
                                     <script>
@@ -305,6 +291,9 @@ if (!isset($_REQUEST['a'])) {
                                     <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
                                 </head>
                                 <body>
+                                   <p>
+                                       <strong>Viewing Timestamp: <?php echo $time . " (" . date('r', $time) . ")";?></strong>
+                                   </p>
                                     <div id="tabs">
                                         <ul>
                                             <li><a href="#netstat">Netstat</a></li>
