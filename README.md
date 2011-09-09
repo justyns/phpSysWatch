@@ -20,6 +20,10 @@ Requirements
 + php
 + php-pdo (with sqlite support)
 
+Download
+--------
+wget 'https://github.com/justyns/phpSysWatch/tarball/master' -O phpsyswatch.tar.gz
+
 Installation
 ------------
 1. Open watch.php and configure it:
@@ -33,3 +37,13 @@ Installation
 5. Open watchview.php and change $dbfile to match watch.php's $dbfile
 6. Copy/move watchview.php to a web-accessible directory
 7. (Optional) configure .htaccess to restrict access to watchview.php by IP
+8. Enable Apache server-status with something like this in the conf:
+```
+ExtendedStatus On
+<Location /server-status>
+    SetHandler server-status
+    Order deny,allow
+    Deny from all
+    Allow from 127.0.0.1
+</Location>
+```
