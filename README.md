@@ -2,8 +2,10 @@ phpSysWatch
 ===========
 
 Please visit these two links for the most up to date version of this script, and information:
-https://github.com/justyns/phpSysWatch
-http://justynshull.com/
++ https://github.com/justyns/phpSysWatch
++ http://justynshull.com/
+
+Please also report any bugs to the issue tracker on github, or via e-mail to justyn [at] justynshull.com
 
 Description
 -----------
@@ -26,7 +28,12 @@ Requirements
 
 Download
 --------
-wget 'https://github.com/justyns/phpSysWatch/tarball/master' -O phpsyswatch.tar.gz
+Just clone the repository to a web-accessible directory:
+```git clone git://github.com/justyns/phpSysWatch.git```
+
+If you don't have git: 
+```wget 'https://github.com/justyns/phpSysWatch/tarball/master' -O phpsyswatch.tar.gz```
+
 
 Installation
 ------------
