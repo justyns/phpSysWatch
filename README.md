@@ -1,6 +1,10 @@
 phpSysWatch
 ===========
 
+Please visit these two links for the most up to date version of this script, and information:
+https://github.com/justyns/phpSysWatch
+http://justynshull.com/
+
 Description
 -----------
 This script will take a snapshot of the following information every 60 seconds(changeable) and input it into a sqlite database:
