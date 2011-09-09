@@ -2,10 +2,11 @@ phpSysWatch
 ===========
 
 Please visit these two links for the most up to date version of this script, and information:
+
 + https://github.com/justyns/phpSysWatch
 + http://justynshull.com/
 
-Please also report any bugs to the issue tracker on github, or via e-mail to justyn [at] justynshull.com
+Report any bugs/suggestions to the issue tracker on github, or via e-mail to justyn [at] justynshull.com
 
 Description
 -----------

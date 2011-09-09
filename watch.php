@@ -24,7 +24,7 @@ $watchhttp = true;          //whether to get /server-status
 $serverstatusurl = "http://localhost/server-status";
 $mysql['user'] = 'root';    //User and pass to login to 
 $mysql['pass'] = '';        //  mysql with
-
+//TODO: Get mysql admin password automatically if its a plesk server
 
 /** Check requirements * */
 //dl() doesn't work after 5.3 and only works in certain cases anyway
@@ -51,7 +51,10 @@ try {
     time INTEGER,
     total INTEGER,
     used INTEGER,
-    free INTEGER
+    free INTEGER,
+    swused INTEGER,
+    swfree INTEGER,
+    swtotal INTEGER
     );");
         $db->exec("CREATE TABLE ps (
     id INTEGER PRIMARY KEY ,
@@ -112,12 +115,16 @@ while (true) {
             $buffers = $value;
         } elseif (preg_match('/^Cached/', $result)) {
             $cached = $value;
+        } elseif (preg_match('/^SwapTotal/', $result)) {
+            $swaptotal = $value;
+        } elseif (preg_match('/^SwapFree/', $result)) {
+            $swapfree = $value;
         }
         unset($result);
     }
     $freemem = ( $freemem + $buffers + $cached );
     $usedmem = $totalmem - $freemem;
-
+    $swapused = $swaptotal - $swapfree;
     //netstat 
     @exec("netstat -nat", $results);
     $netstatcons = count($results);
