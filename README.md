@@ -50,6 +50,7 @@ Installation
 6. Copy/move watchview.php to a web-accessible directory
 7. (Optional) configure .htaccess to restrict access to watchview.php by IP
 8. Enable Apache server-status with something like this in the conf:
+
 ```
 ExtendedStatus On
 <Location /server-status>
@@ -59,3 +60,11 @@ ExtendedStatus On
     Allow from 127.0.0.1
 </Location>
 ```
+
+Files
+-----
+README.md - readme with markup for github
+watch.php - php script that does all of the logging
+watchview.php - php script that views/graphs the data logged by watch.php
+watch.py - original python script that does something similar but logs to separate files
+watchuploader.sh - my first attempt at uploading the data from watch.py to a remote server for graphing/viewing
