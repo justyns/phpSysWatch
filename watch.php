@@ -176,8 +176,8 @@ while (true) {
         $db->exec("
             INSERT INTO load (time, min1, min5, min15)
             VALUES ($time, {$loadavg[0]}, {$loadavg[1]}, {$loadavg[2]});
-            INSERT INTO memory (time, total, used, free)
-            VALUES ($time, $totalmem, $usedmem, $freemem);");
+            INSERT INTO memory (time, total, used, free, swused, swfree, swtotal)
+            VALUES ($time, $totalmem, $usedmem, $freemem, $swapused, $swapfree, $swaptotal);");
         $dbq = $db->prepare("
             INSERT INTO netstat (time, connections, netstat)
             VALUES ($time, $netstatcons, compress(:netstat));")->execute(array(":netstat" => $netstat));
@@ -195,6 +195,7 @@ while (true) {
         /** Try and clean up what we can * */
         unset($netstat, $usedmem, $totalmem, $freemem, $loadavg, $httpconns);
         unset($results, $dbq, $db, $procs, $ps, $mysqlprocs, $mysqlstatus, $httpstatus);
+        unset($swapfree, $swapused,$swaptotal);
     } catch (PDOException $e) {
         die("$time: PDO Exception: $e \n");
     } catch (Exception $e) {
