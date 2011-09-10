@@ -5,7 +5,7 @@
  * filename: watch.php
  * author: Justyn Shull <justyn [at] justynshull.com>
  * Created: July 21, 2011
- * Last Updated: July 27, 2011
+ * Last Updated: September 9, 2011
  * 
  * Meant to be used as a replacement for Pat's watch.py script
  * Instructions:
@@ -88,6 +88,15 @@ try {
     processlist TEXT,
     status TEXT
     );");
+    }
+    //**  Upgrade Check **/
+    /** Sep 9, 2011 - Swap columns **/
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
+    if (!$db->query("SELECT swused FROM memory LIMIT 1;")) {
+        echo "Upgrading memory table to include swap stats..\n";
+        $db->exec("ALTER TABLE memory ADD swused INTEGER;");
+        $db->exec("ALTER TABLE memory ADD swfree INTEGER;");
+        $db->exec("ALTER TABLE memory ADD swtotal INTEGER;");
     }
 } catch (PDOException $e) {
     die($e->getMessage());
