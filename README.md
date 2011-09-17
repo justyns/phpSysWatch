@@ -26,6 +26,7 @@ Requirements
 + Root access to the server you want to monitor(possibly not required)
 + php
 + php-pdo (with sqlite support)
++ php safe_mode must be off
 
 Download
 --------
