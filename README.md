@@ -26,7 +26,7 @@ Requirements
 + Root access to the server you want to monitor(possibly not required)
 + php
 + php-pdo (with sqlite support)
-+ php safe_mode must be off
++ php safe\_mode must be off
 
 Download
 --------
@@ -46,11 +46,12 @@ Installation
 	+ $mysql['pass'] should be updated to the mysql root password, or another user created for this script with the necessary permissions
 2. Copy/move watch.php pretty much anywhere
 3. chmod +x watch.php
-4. Run it:  ./watch.php
-5. Open watchview.php and change $dbfile to match watch.php's $dbfile
-6. Copy/move watchview.php to a web-accessible directory
-7. (Optional) configure .htaccess to restrict access to watchview.php by IP
-8. Enable Apache server-status with something like this in the conf:
+4. Run it to create the database:  ./watch.php
+5. Open watch.sh and add the full path to watch.php.   Add watch.sh to crontab: ```*/5     *       *       *       *       /path/to/watch.sh &```
+6. Open watchview.php and change $dbfile to match watch.php's $dbfile
+7. Copy/move watchview.php to a web-accessible directory
+8. (Optional) configure .htaccess to restrict access to watchview.php by IP
+9. Enable Apache server-status with something like this in the conf:
 
 ```
 ExtendedStatus On
@@ -66,6 +67,7 @@ Files
 -----
 README.md - readme with markup for github
 watch.php - php script that does all of the logging
+watch.sh - bash wrapper script to be called from cron and ensure watch.php is running
 watchview.php - php script that views/graphs the data logged by watch.php
 watch.py - original python script that does something similar but logs to separate files
 watchuploader.sh - my first attempt at uploading the data from watch.py to a remote server for graphing/viewing
