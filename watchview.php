@@ -3,18 +3,19 @@
  * filename: watchview.php
  * author: Justyn Shull <justyn [at] justynshull.com>
  * Created: July 21, 2011
- * Last Updated: August 11, 2011
+ * Last Updated: October 16, 2011
  *
  * Displays stats taken from watch.db created by watch.php
  *
  * Changelog:
  *  08/03/2011 - Added ob_start() before outputting the html pages
- *              - Added a no_cache header to the primary html page
+ *             - Added a no_cache header to the primary html page
  *  08/11/2011 - Added previous and next links to detail view
  *  10/16/2011 - Added swap usage details to memory graph
+ *             - Use a more sensible default location of watch.db
  */
 /** Config * */
-$dbfile = "watch.db";
+$dbfile = __DIR__ . DIRECTORY_SEPARATOR . "watch.db";
 $watchview = $_SERVER['PHP_SELF'];
 
 function compress_data($data_string) {

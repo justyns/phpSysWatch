@@ -5,7 +5,7 @@
  * filename: watch.php
  * author: Justyn Shull <justyn [at] justynshull.com>
  * Created: July 21, 2011
- * Last Updated: September 9, 2011
+ * Last Updated: October 16, 2011
  * 
  * Meant to be used as a replacement for Pat's watch.py script
  * Instructions:
@@ -17,14 +17,20 @@
  * 
  */
 /**  Config * */
-$dbfile = "watch.db";
+$dbfile = __DIR__ . DIRECTORY_SEPARATOR . "watch.db";
 $interval = 60;             // Every 60 seconds
 $watchmysql = true;         //Whether or not to monitor mysql
 $watchhttp = true;          //whether to get /server-status
 $serverstatusurl = "http://localhost/server-status";
-$mysql['user'] = 'root';    //User and pass to login to 
-$mysql['pass'] = '';        //  mysql with
-//TODO: Get mysql admin password automatically if its a plesk server
+if (is_readable("/etc/psa/.psa.shadow")) {
+    //Appears to be a plesk machine
+    $mysql['user'] = 'admin';
+    $mysql['pass'] = file_get_contents("/etc/psa/.psa.shadow");
+} else {
+    //Non-Plesk machine.   Set mysql information manually
+    $mysql['user'] = 'root';    //User and pass to login to 
+    $mysql['pass'] = '';        //  mysql with
+}
 
 /** Check requirements * */
 //dl() doesn't work after 5.3 and only works in certain cases anyway
