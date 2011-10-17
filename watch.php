@@ -40,7 +40,13 @@ if (!extension_loaded("PDO") && !dl("pdo.so"))
     die("PDO not enabled\n");
 if (!function_exists("exec"))
     die("exec is not enabled\n");
-/** DB Initilize * */
+/** CLI Check **/
+if (php_sapi_name() == 'cli' && empty($_SERVER['REMOTE_ADDR'])) {
+    //Running from cli
+} else {
+    die("watch.php can only be run from the cli\n");
+}
+/** DB Initilize **/
 $createtables = false;
 if (!file_exists($dbfile)) {
     $createtables = true;
