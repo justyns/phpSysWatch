@@ -65,9 +65,9 @@ ExtendedStatus On
 
 Files
 -----
-README.md - readme with markup for github
-watch.php - php script that does all of the logging
-watch.sh - bash wrapper script to be called from cron and ensure watch.php is running
-watchview.php - php script that views/graphs the data logged by watch.php
-watch.py - original python script that does something similar but logs to separate files
-watchuploader.sh - my first attempt at uploading the data from watch.py to a remote server for graphing/viewing
+* README.md - readme with markup for github
+* watch.php - php script that does all of the logging
+* watch.sh - bash wrapper script to be called from cron and ensure watch.php is running
+* watchview.php - php script that views/graphs the data logged by watch.php
+* watch.py - original python script that does something similar but logs to separate files
+* watchuploader.sh - my first attempt at uploading the data from watch.py to a remote server for graphing/viewing

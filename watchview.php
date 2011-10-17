@@ -11,6 +11,7 @@
  *  08/03/2011 - Added ob_start() before outputting the html pages
  *              - Added a no_cache header to the primary html page
  *  08/11/2011 - Added previous and next links to detail view
+ *  10/16/2011 - Added swap usage details to memory graph
  */
 /** Config * */
 $dbfile = "watch.db";
@@ -176,6 +177,8 @@ if (!isset($_REQUEST['a'])) {
                         if (isset($_REQUEST['mem'])) {
                             array_push($cols, "used");
                             array_push($cols, "free");
+                            array_push($cols, "swused");
+                            array_push($cols, "swfree");
                             array_push($tables, "memory");
                         }
                         if (isset($_REQUEST['load'])) {
@@ -237,7 +240,7 @@ if (!isset($_REQUEST['a'])) {
                             $y = 1;
                             $js .= "data.setValue($x, 0, '" . date('r', $row['time']) . "');\n";
                             foreach ($cols as $col) {
-                                if (($col == "used") OR ($col == "free")) {
+                                if (($col == "used") OR ($col == "free") OR ($col == "swused") OR ($col == "swfree")) {
                                     $js .= "data.setValue($x, $y," . round($row["$col"] / 1024) . ");\n";
                                 } else {
                                     $js .= "data.setValue($x, $y," . $row["$col"] . ");\n";
